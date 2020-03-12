@@ -1,0 +1,27 @@
+
+DATE: 03/12/2020                                     RATHBUN LAKE RESERVATIONS                                              PAGE:  1
+                                                            ERROR REPORT                                                            
+
+ERROR RECORD                                                                                                                        
+
+BUCK CREEK               1232022032012DAVIS               DAVE                10000A123456789123456720210224                        
+FIRST POSITION OF SITE MUST BE A LETTER                                                                                             
+LENGTH OF STAY MUST BE 2-11                                                                                                         
+
+BUCK CREEK               ABC2022010601BIRKNER             HARRISON            01000M123456789123456720210224                        
+LENGTH OF STAY MUST BE 2-11                                                                                                         
+
+HONEY CREK               A00ABCDEFGH09BERNARD             ANDY                09000A765432198765432120210224                        
+RESERVATION DATE NOT NUMERIC                                                                                                        
+
+ISLAND VIEW              B452022001511LESTER              HANNAH              11000V123456789123456720210224                        
+
+ISLAND VIEW              B452022131510HERNANDEZ           ALEXANDER           10000M765432198765432120210224                        
+
+BUCK CREEK               N982022022400FREEMAN             MORGAN              00000M123456789123456720210224                        
+
+HONEY CREEK              M992021031413JONES               GEORGE              15600A765432198765432120210224                        
+
+ISLAND VIEW              D542020121402                    KENNY               02400V123456789123456720210224                        
+
+HONEY CREEK              G542021050205DYLAN                                   06000M765432198765432120210224                        

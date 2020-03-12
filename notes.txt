@@ -1,0 +1,158 @@
+STRING LAST-NAME DELIMITED BY "  "
+	', ' DELIMITED BY SIZE
+	FIRST-NAME DELIMITED BY "  "
+INTO O-FULL-NAME.
+
+COPY 'COPYBOOK.CPY'
+
+IF A 31 MONTH
+	ADD LEN-STAY TO DAY
+	IF VAL-31-DAY
+		ADD 1 TO MONTH
+		SUBTRACT 31 FROM DAY
+		IF NOT VAL-MONTH
+			MOVE 1 TO MONTH
+			ADD 1 TO YEAR.
+			
+
+			
+COMPUTE C-AMT = TBL-DAY-AMT(IDX1) * I-LEN-STAY
+
+	
+L3-VALIDATTION.
+	MOVE 'Y' TO FIRST-ERR-SW.
+	MOVE 'N' TO AMT-SW.
+	IF I-LNAME = SPACES
+		MOVE TBL-ERROR(6) TO O-ERR-MSG
+		PERFORM L4-ERR.
+	IF I-FNAME = SPACES
+		MOVE TBL-ERROR(5) TO O-ERR-MSG
+	IF I-LEN-STAY NOT NUMERIC
+		MOVE 'Y' TO AMT-SW
+		MOVE TBL-ERROR(3) TO O-ERR-MSG
+		PERFORM L4-ERR.
+	IF I-AMT NOT NUMERIC
+		MOVE TBL-ERROR(12) TO O-ERR-MSG
+		PERFORM L4-ERROR
+	ELSE 
+		IF AMT-SW = 'Y'
+			NEXT SENTENCE.
+	IF C-AMT NOT= I-AMNT
+		MOVE TBL-ERROR(14) T O-ERR-MSG
+		PERFORM L4-ERR.	
+		
+L4-ERR.
+	IF FIRST-ERR-SW = 'Y'
+		MOVE 'N' TO FIRST-ERR-SW
+		ADD 1 TO REC-ERR-CTR
+		MOVE TRAN-REC TO O-ERR
+		WRITE ERR-LINE FROM O-ERR-LINE
+			AFTER ADVANCING 1 LINE
+		WRITE ERR-LINE FROM O-ERR-MSG-LINE
+	ELSE
+		WRITE ERR-LINE FROM O-ERR-MSG-LINE
+			AFTER ADVANCING 1 LINE.
+		ADD 1 TO TOT-ERR-CTR
+		
+************************************************************		
+		
+	index used to access tables, different than subscript.
+
+sub defined in W.S.
+	-uses varying
+	-add and subtract
+	-move 0 or 1
+	
+index not need definition
+	-uses SET eg set site-index to 1, set site-index up by 1
+
+01 site-info
+	05 filler				pic x(5) value 'a1000'
+	05 filler				pic x(5) value 'b1000'
+	05 filler				pic x(5) value 'c1000'
+	.
+	.
+	.
+	.
+	05 filler   			pic x(5) value 'z1400'
+	
+01 tbl-site redefines site-info
+	05 sites occurs 26 times indexed by site-index
+		10 tbl-site 		pic x.
+		10 tbl-nightly-cost pic 99v99.
+		
+***************SEARCHING**********************		
+
+if switch = 'y'		
+	set site-index to 1
+	search sites
+		at end ***not neccesary on CP1 because data should be valid already. or AT END can be used to validate data.
+			move tbl-error(x) to o-error-msg
+		when i-site = tbl-site(site-index)
+			compute c-amnt = i-len-stay * tbl-nightly-cost(site-index)
+			if i-amnt not equal c-amnt
+			move tbl-error(x) to o-error-msg.
+			
+********************DATE VALIDATION***********************
+i-date and i-ccexp validated the same with same variables
+
+01 WK-DATE.
+	05 WK-YYYY	PIC 9(4).
+	05 WK-MM	PIC 99.
+		88 VAL-MM	VALUE 1 THRU 12.
+		88 VAL-30-MM VALUE 4, 6, 9, 11.
+		88 VAL-31-MM VALUE 1, 3, 5, 7, 8, 10, 12.
+	05 WK-DD	PIC 99.
+		88 VAL-WK-DD-31 VALUE 1 THRU 31.
+		88 VAL-WK-DD-30 VALUE 1 THRU 30.
+		88 VAL-WK-DD-28 VALUE 1 THRU 28.
+		88 VAL-WK-DD-29 VALUE 1 THRU 29.
+01 WK-DATE-NUM REDEFINES WK-DATE.
+		
+MOVE I-DATE TO WK-DATE
+MOVE 'R' TO DATE-TYPE
+PERFORM L5-DATE-VAL
+	THRU L5-DATE-VAL-EXIT
+********************
+MOVE I-CC-EXP TO WK-DATE
+MOVE 'C' TO DATE-TYPE
+PERFORM L5-DATE-VAL
+	THRU L5-DATE-VAL-EXIT
+
+L5-DATE-VAL.
+	IF WK-DATE-NUM NOT NUMERIC
+		IF DATE-TYPE = 'R'
+		MOVE RESERVATION ERROR TO OUTPUT
+		ELSE
+			MOVE CCEXP ERROR TO OUTPUT
+		END-IF
+		PERFORM L6-ERROR
+		GO TO L5-DATE-VAL-EXIT.
+	IF NOT VAL-MM
+		MOVE ERROR
+		PERFORM ERROR.
+	IF VAL-30-MM AND NOT VAL-WK-DD-30
+		MOVE ERROR
+		PERFORM ERROR.
+	IF VAL-31-MM AND NOT VAL-WK-DD-31
+		MOVE ERROR
+		PERFORM ERROR
+	IF WK-MM = 2
+		DIVIDE WK-YYY BY 4 GIVING C-LEAP REMAINDER C-LEAP
+		IF C-LEAP = 0
+			IF NOT VAL-WK-DD-29
+				MOVE ERROR
+				PERFORM ERROR
+			ELSE
+				NEXT SENTENCE
+			END-IF
+		ELSE
+			IF NOT VAL-WK-DD-28
+				MOVE ERROR
+				PERFORM ERROR.
+	IF WK-DATE-NUM <= CURRENT DATE
+		MOVE ERROR
+		PERFORM ERROR
+		
+L5-DATE-VAL-EXIT.
+	EXIT.
