@@ -2,12 +2,6 @@
        PROGRAM-ID. CBLHJB01.
 	   AUTHOR. HARRISON BIRKNER.
 
-      **************WHAT NEEDS DONE***************
-      *2. DAT FILE
-      *3. TESTING
-      *4. MAKE COPYBOOKS
-      ********************************************
-
        ENVIRONMENT DIVISION.
 		   SELECT CAMPRES-INPUT
 			   ASSIGN TO 'C:\COBOLSP20\RESERVE.DAT'
@@ -27,40 +21,14 @@
 	   DATA RECORD IS TRAN-REC
 	   RECORD CONTAINS 108 CHARACTERS.
 
-	   01 TRAN-REC.
-           05	I-CAMPGROUND	PIC X(25).
-           05	I-SITE.
-               10  I-SITE1      PIC X.
-                   88 VAL-CAMPGROUND   VALUE 'A' THRU 'Z'.
-               10  I-SITE2      PIC 99.
-	       05	I-DATE		    PIC 9(8).
-	       05	I-LEN-STAY		PIC 99.	
-	       05	I-LNAME		    PIC X(20).	
-	       05	I-FNAME		    PIC X(20).	
-           05	I-AMT			PIC S9(3)V99.
-	       05	I-CCTYPE		PIC X.
-               88 VAL-CCTYPE    VALUE 'V', 'M', 'A'.
-	       05	I-CCNUM		    PIC 9(16).	
-	       05	I-CCEXP		    PIC 9(8).	
-
+	   COPY "TRAN.CPY".
 
 	   FD PRTOUT
 	   LABEL RECORD IS OMITTED
 	   DATA RECORD IS VAL-REC
 	   RECORD CONTAINS 136 CHARACTERS.
 
-       01 VAL-REC.
-	       05	O-CAMPGROUND	PIC X(25).
-           05	O-SITE		    PIC X99.
-	       05	O-DATE		    PIC 9(8).	
-	       05	O-END-DATE		PIC 9(8).
-	       05	O-LEN-STAY		PIC 99.	
-	       05	O-NAME		    PIC X(42).	
-           05	O-AMT			PIC S9(3)V99.	
-	       05	O-CCTYPE		PIC X(16).	
-	       05	O-CCNUM		    PIC X(19).	
-	       05	O-CCEXP		    PIC 9(8).
-
+       COPY "VAL.CPY".
 
 	   FD ERROUT
 	   LABEL RECORD IS OMITTED
@@ -74,10 +42,6 @@
        01 SWITCHES.
            05 FIRST-ERR-SW      PIC X.
            05 ERR-SW            PIC X.
-           05 SITE1-SW          PIC X.
-           05 SITE2-SW          PIC X.
-           05 AMNT-SW           PIC X.
-           05 LEN-STAY-SW       PIC X.
            05 MORE-RECS         PIC X.
        01 CURRENT-DATE-AND-TIME.
            05 CURRENT-DATE.
@@ -110,63 +74,7 @@
        01 TBL-WK-DATE-NUM REDEFINES WK-DATE.
            05 WK-DATE-NUM       PIC 9(8).
 
-       01  ERR-TABLE.
-           05  FILLER                      PIC X(100)
-               VALUE 'CAMPGROUND MUST NOT BE "BUCK CREEK", "ISLAND VIEW"
-      -        ', OR "HONEY CREEK".'.
-           05  FILLER                      PIC X(100)
-               VALUE 'FIRST POSITION OF SITE MUST BE A LETTER'.
-           05  FILLER                      PIC X(100)
-               VALUE 'SECOND PART OF SITE MUST BE NUMERIC'.
-           05  FILLER                      PIC X(100)
-               VALUE 'SECOND PART OF SITE MUST BE GREATER THAN ZERO'.
-           05  FILLER                      PIC X(100)
-               VALUE 'RESERVATION DATE NOT NUMERIC'.
-           05  FILLER                      PIC X(100)
-               VALUE 'RESERVATION MONTH MUST BE 1-12'.
-           05  FILLER                      PIC X(100)
-               VALUE 'RESERVATION DAY MUST BE 1-30 FOR MONTH'.
-           05  FILLER                      PIC X(100)
-               VALUE 'RESERVATION DAY MUST BE 1-31 FOR MONTH'.
-           05  FILLER                      PIC X(100)
-               VALUE 'RESERVATION DAY MUST BE 1-29 FOR MONTH'.
-           05  FILLER                      PIC X(100)
-               VALUE 'RESERVATION DAY MUST BE 1-28 FOR MONTH'.
-           05  FILLER                      PIC X(100)
-               VALUE 'RESERVATION DATE MUST BE AFTER TODAY'.
-           05  FILLER                      PIC X(100)
-               VALUE 'LENGTH OF STAY MUST BE NUMERIC'.
-           05  FILLER                      PIC X(100)
-               VALUE 'LENGTH OF STAY MUST BE 2-11'.
-           05  FILLER                      PIC X(100)
-               VALUE 'LAST NAME MUST NOT BE BLANK'.
-           05  FILLER                      PIC X(100)
-               VALUE 'FIRST NAME MUST NOT BE BLANK'.
-           05  FILLER                      PIC X(100)
-               VALUE 'AMOUNT MUST BE NUMERIC'.
-           05  FILLER                      PIC X(100)
-               VALUE 'AMOUNT MUST BE LENGTH OF STAY * SITE FEE'.
-           05  FILLER                      PIC X(100)
-               VALUE 'CREDIT CARD TYPE MUST BE "V", "M", OR "A"'.
-           05  FILLER                      PIC X(100)
-               VALUE 'CREDIT CARD NUMBER MUST BE NUMERIC'.
-           05  FILLER                      PIC X(100)
-               VALUE 'CREDIT CARD EXPIRATION DATE NOT NUMERIC'.
-           05  FILLER                      PIC X(100)
-               VALUE 'CREDIT CARD EXPIRATION MONTH MUST BE 1-12'.
-           05  FILLER                      PIC X(100)
-              VALUE 'CREDIT CARD EXPIRATION DAY MUST BE 1-30 FOR MONTH'.
-           05  FILLER                      PIC X(100)
-              VALUE 'CREDIT CARD EXPIRATION DAY MUST BE 1-31 FOR MONTH'.
-           05  FILLER                      PIC X(100)
-              VALUE 'CREDIT CARD EXPIRATION DAY MUST BE 1-29 FOR MONTH'.
-           05  FILLER                      PIC X(100)
-              VALUE 'CREDIT CARD EXPIRATION DAY MUST BE 1-28 FOR MONTH'.
-           05  FILLER                      PIC X(100)
-               VALUE 'CREDIT CARD EXPIRATION DATE MUST BE AFTER TODAY'.
-
-       01  TABLE-ERR REDEFINES ERR-TABLE.
-           05  ERR-MSG                     PIC X(100)  OCCURS 26 TIMES.
+       COPY "ERROR.CPY".
 
        01 SITES.
            05  FILLER           PIC X(3)   VALUE 'A10'.
@@ -224,11 +132,6 @@
            05 FILLER                  PIC X(12)   VALUE 
               'ERROR RECORD'.
 
-       01 ERR-COL-HEADING2.
-		   05 FILLER                  PIC X(100) VALUE 
-              'ERROR DESCRIPTION'.
-
-
        01 ERROR-LINE.
            05 O-ERR                   PIC X(108).
 
@@ -276,6 +179,7 @@
                PERFORM L3-CALCS
                PERFORM L3-MOVE-PRINT
            END-IF.
+           MOVE SPACES TO VAL-REC.
            PERFORM L9-READ-INPUT.
 
        L2-CLOSING.
@@ -296,19 +200,16 @@
 
        L3-VALIDATION.
            MOVE 'N' TO ERR-SW.
-           MOVE 'N' TO SITE1-SW.
-           MOVE 'N' TO SITE2-SW
-           MOVE 'N' TO AMNT-SW.
-           MOVE 'N' TO LEN-STAY-SW.
            MOVE 'Y' TO FIRST-ERR-SW.
            IF NOT VAL-CAMPGROUND
            	   MOVE ERR-MSG(1) TO O-ERR-MSG
            	   MOVE 'Y' TO ERR-SW
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT.
-           IF I-SITE1 NOT ALPHABETIC
+           IF I-SITE1 NUMERIC
            	   MOVE ERR-MSG(2) TO O-ERR-MSG
            	   MOVE 'Y' TO ERR-SW
-           	   MOVE 'Y' TO SITE1-SW
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT.
            IF I-SITE2 NUMERIC
            	   IF I-SITE2 > 0
@@ -319,14 +220,14 @@
                                        TBL-SITE-PRICE(SITE-INDEX)
                ELSE
                    MOVE ERR-MSG(4) TO O-ERR-MSG
-                   MOVE 'Y' TO SITE2-SW
                    MOVE 'Y' TO ERR-SW
+				   ADD 1 TO C-TOT-ERR-CTR
                    PERFORM L4-ERROR-PRINT
                END-IF
            ELSE
            	   MOVE ERR-MSG(3) TO O-ERR-MSG
-           	   MOVE 'Y' TO SITE2-SW
                MOVE 'Y' TO ERR-SW
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT
            END-IF.
            
@@ -342,28 +243,32 @@
            	       ELSE
            	   	       MOVE ERR-MSG(13) TO O-ERR-MSG
            	   	       MOVE 'Y' TO ERR-SW
+					   ADD 1 TO C-TOT-ERR-CTR
            	   	       PERFORM L4-ERROR-PRINT
            	       END-IF
                ELSE
            	   	   MOVE ERR-MSG(13) TO O-ERR-MSG
            	   	   MOVE 'Y' TO ERR-SW
+				   ADD 1 TO C-TOT-ERR-CTR
            	   	   PERFORM L4-ERROR-PRINT
            	   END-IF
            ELSE
            	   MOVE ERR-MSG(12) TO O-ERR-MSG
            	   MOVE 'Y' TO ERR-SW
-           	   MOVE 'Y' TO LEN-STAY-SW
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT
            END-IF.
 
            IF I-LNAME = SPACES
            	   MOVE ERR-MSG(14) TO O-ERR-MSG
            	   MOVE 'Y' TO ERR-SW
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT.
 
            IF I-FNAME = SPACES
            	   MOVE ERR-MSG(15) TO O-ERR-MSG
            	   MOVE 'Y' TO ERR-SW
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT.
 
            IF I-AMT NUMERIC
@@ -375,22 +280,26 @@
                IF C-AMT NOT EQUAL I-AMT
            	       MOVE 'Y' TO ERR-SW
            	       MOVE ERR-MSG(17) TO O-ERR-MSG
+				   ADD 1 TO C-TOT-ERR-CTR
            	       PERFORM L4-ERROR-PRINT
+			   END-IF
            ELSE
                MOVE 'Y' TO ERR-SW
-           	   MOVE 'Y' TO AMNT-SW
            	   MOVE ERR-MSG(16) TO O-ERR-MSG
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT
            END-IF.
            
            IF NOT VAL-CCTYPE
            	   MOVE 'Y' TO ERR-SW
            	   MOVE ERR-MSG(18) TO O-ERR-MSG
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT.
 
            IF I-CCNUM NOT NUMERIC
            	   MOVE 'Y' TO ERR-SW
            	   MOVE ERR-MSG(19) TO O-ERR-MSG
+			   ADD 1 TO C-TOT-ERR-CTR
            	   PERFORM L4-ERROR-PRINT.
            	
        MOVE I-CCEXP TO WK-DATE.
@@ -455,10 +364,18 @@
 	       	   I-FNAME DELIMITED BY "  "
 	       INTO O-NAME.
 	       MOVE I-AMT TO O-AMT.
-	       MOVE I-CCNUM TO O-CCNUM.
+		   STRING I-CCNUM1 DELIMITED BY SIZE
+			   '-' DELIMITED BY SIZE
+			   I-CCNUM2 DELIMITED BY SIZE
+			   '-' DELIMITED BY SIZE
+			   I-CCNUM3 DELIMITED BY SIZE
+			   '-' DELIMITED BY SIZE
+			   I-CCNUM4 DELIMITED BY SIZE
+		   INTO O-CCNUM.
 	       MOVE I-CCEXP TO O-CCEXP.
            
            WRITE VAL-REC.
+
 
        L3-ERR-TOTALS.
            MOVE C-TOT-ERR-CTR TO O-TOT-ERR-CTR.
@@ -476,16 +393,12 @@
 		       MOVE TRAN-REC TO O-ERR
 		       WRITE ERRLINE FROM ERROR-LINE
 			       AFTER ADVANCING 2 LINES
-			          AT EOP
-			       PERFORM L4-ERROR-HEADING
-               WRITE ERRLINE FROM ERR-COL-HEADING2
 		       WRITE ERRLINE FROM ERR-MSG-LINE
 	       ELSE
 		       WRITE ERRLINE FROM ERR-MSG-LINE
 			   AFTER ADVANCING 1 LINE
 				   AT EOP
 					   PERFORM L4-ERROR-HEADING
-		   ADD 1 TO C-TOT-ERR-CTR
 	       END-IF.
 
        L4-ERROR-HEADING.
@@ -505,6 +418,7 @@
 	      	   ELSE
 	      	   	   MOVE ERR-MSG(20) TO O-ERR-MSG
 	      	   END-IF
+		       ADD 1 TO C-TOT-ERR-CTR
 	      	   PERFORM L4-ERROR-PRINT
            ELSE
                IF NOT VAL-MM
@@ -513,6 +427,7 @@
 	      	       ELSE
 	      	   	       MOVE ERR-MSG(21) TO O-ERR-MSG
 	      	       END-IF
+				   ADD 1 TO C-TOT-ERR-CTR
 	      	       PERFORM L4-ERROR-PRINT
 	           IF VAL-30-MM AND NOT VAL-WK-DD-30
 	       	       IF DATE-TYPE = 'R'
@@ -520,6 +435,7 @@
 	      	       ELSE
 	      	   	       MOVE ERR-MSG(22) TO O-ERR-MSG
 	      	       END-IF
+				   ADD 1 TO C-TOT-ERR-CTR
 	      	       PERFORM L4-ERROR-PRINT
 	           IF VAL-31-MM AND NOT VAL-WK-DD-31
 	      	       IF DATE-TYPE = 'R'
@@ -527,6 +443,7 @@
 	      	       ELSE
 	      	       	   MOVE ERR-MSG(23) TO O-ERR-MSG
 	      	       END-IF
+				   ADD 1 TO C-TOT-ERR-CTR
 	      	       PERFORM L4-ERROR-PRINT
 	           IF WK-MM = 2
 	      	       DIVIDE WK-YYYY BY 4 GIVING C-LEAP REMAINDER C-LEAP
@@ -537,6 +454,7 @@
 	      	               ELSE
 	      	               	   MOVE ERR-MSG(24) TO O-ERR-MSG
 	      	               END-IF
+						   ADD 1 TO C-TOT-ERR-CTR
 	      	               PERFORM L4-ERROR-PRINT
 	      	       	   ELSE
 	      	       		   NEXT SENTENCE
@@ -548,6 +466,7 @@
 	      	               ELSE
 	      	               	   MOVE ERR-MSG(25) TO O-ERR-MSG
 	      	               END-IF
+						   ADD 1 TO C-TOT-ERR-CTR
 	      	               PERFORM L4-ERROR-PRINT
 	           IF WK-DATE-NUM <= CURRENT-DATE
 	          	   IF DATE-TYPE = 'R'
@@ -555,6 +474,7 @@
 	          	   ELSE
 	          	   	   MOVE ERR-MSG(26) TO O-ERR-MSG
 	          	   END-IF
+			       ADD 1 TO C-TOT-ERR-CTR
 	          	   PERFORM L4-ERROR-PRINT
            END-IF.
 

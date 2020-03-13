@@ -4,24 +4,70 @@ DATE: 03/12/2020                                     RATHBUN LAKE RESERVATIONS  
 
 ERROR RECORD                                                                                                                        
 
+SOAP CREEK               A232021041202DYLAN               BOB                 02000M765432198765432120210224                        
+CAMPGROUND MUST NOT BE "BUCK CREEK", "ISLAND VIEW", OR "HONEY CREEK".                                                               
+
 BUCK CREEK               1232022032012DAVIS               DAVE                10000A123456789123456720210224                        
 FIRST POSITION OF SITE MUST BE A LETTER                                                                                             
 LENGTH OF STAY MUST BE 2-11                                                                                                         
 
+HONEY CREK               A202021022304CUERVO              JOSE                04000V765432198765432120210224                        
+CAMPGROUND MUST NOT BE "BUCK CREEK", "ISLAND VIEW", OR "HONEY CREEK".                                                               
+
 BUCK CREEK               ABC2022010601BIRKNER             HARRISON            01000M123456789123456720210224                        
+SECOND PART OF SITE MUST BE NUMERIC                                                                                                 
 LENGTH OF STAY MUST BE 2-11                                                                                                         
 
 HONEY CREK               A00ABCDEFGH09BERNARD             ANDY                09000A765432198765432120210224                        
+CAMPGROUND MUST NOT BE "BUCK CREEK", "ISLAND VIEW", OR "HONEY CREEK".                                                               
+SECOND PART OF SITE MUST BE GREATER THAN ZERO                                                                                       
 RESERVATION DATE NOT NUMERIC                                                                                                        
 
 ISLAND VIEW              B452022001511LESTER              HANNAH              11000V123456789123456720210224                        
+RESERVATION MONTH MUST BE 1-12                                                                                                      
 
 ISLAND VIEW              B452022131510HERNANDEZ           ALEXANDER           10000M765432198765432120210224                        
+RESERVATION MONTH MUST BE 1-12                                                                                                      
 
 BUCK CREEK               N982022022400FREEMAN             MORGAN              00000M123456789123456720210224                        
+LENGTH OF STAY MUST BE 2-11                                                                                                         
 
 HONEY CREEK              M992021031413JONES               GEORGE              15600A765432198765432120210224                        
+LENGTH OF STAY MUST BE 2-11                                                                                                         
 
 ISLAND VIEW              D542020121402                    KENNY               02400V123456789123456720210224                        
+LAST NAME MUST NOT BE BLANK                                                                                                         
 
-HONEY CREEK              G542021050205DYLAN                                   06000M765432198765432120210224                        
+HONEY CREEK              G542021050205DYLAN                                   06000M765432198765432120210224                        
+FIRST NAME MUST NOT BE BLANK                                                                                                        
+
+BUCK CREEK               F692020042002STRAIT              GEORGE              XXXXXA123456789123456720210224                        
+AMOUNT MUST BE NUMERIC                                                                                                              
+
+BUCK CREEK               A122022032001BIRKNER             HARRISON            02000V765432198765432120210224                        
+LENGTH OF STAY MUST BE 2-11                                                                                                         
+
+ISLAND VIEW              B152021022302BERNARD             ANDY                02000X123456789123456720210224                        
+CREDIT CARD TYPE MUST BE "V", "M", OR "A"                                                                                           
+
+HONEY CREEK              C422022010605LESTER              HANNAH              05000VXXXXXXXXXXXXXXXX20210224                        
+CREDIT CARD NUMBER MUST BE NUMERIC                                                                                                  
+
+ISLAND VIEW              D582022022412HERNANDEZ           ALEXANDER           14400M7654321987654321ABCDEFGH                        
+LENGTH OF STAY MUST BE 2-11                                                                                                         
+CREDIT CARD EXPIRATION DATE NOT NUMERIC                                                                                             
+
+
+DATE: 03/12/2020                                     RATHBUN LAKE RESERVATIONS                                              PAGE:  2
+                                                            ERROR REPORT                                                            
+
+ERROR RECORD                                                                                                                        
+
+HONEY CREEK              E692021031410HILL                JUSTIIN             12000A123456789123456720220015                        
+CREDIT CARD EXPIRATION MONTH MUST BE 1-12                                                                                           
+
+BUCK CREEK               F422020121406FREEMAN             MORGAN              07200V765432198765432120221315                        
+CREDIT CARD EXPIRATION MONTH MUST BE 1-12                                                                                           
+
+TOTALS: ERRONEOUS RECORDS  ERRORS                                                                                                   
+                       18      23                                                                                                   
